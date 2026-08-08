@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePrivy } from "@privy-io/react-auth";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -8,19 +8,26 @@ export default function AuthRouter({ children }: { children: React.ReactNode }) 
   const { ready, authenticated } = usePrivy();
   const router = useRouter();
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (!ready) return;
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!ready || !mounted) return;
 
     if (authenticated && pathname === "/landing") {
       router.replace("/");
     } else if (!authenticated && pathname === "/") {
       router.replace("/landing");
     }
-  }, [ready, authenticated, pathname, router]);
+  }, [ready, authenticated, pathname, router, mounted]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     // Global background music setup
     if (!audioRef.current) {
       const audio = new Audio("/assets/audio/song-theme-atheria.mp3");
@@ -53,13 +60,11 @@ export default function AuthRouter({ children }: { children: React.ReactNode }) 
     return () => {
       document.removeEventListener("click", handleInteraction);
       document.removeEventListener("keydown", handleInteraction);
-      // We don't pause the audio on unmount because AuthRouter wraps the whole app
-      // so it will persist across page changes.
     };
   }, []);
 
   // Simple loading state to prevent flash of content during initial auth check
-  if (!ready) {
+  if (!mounted || !ready) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
         <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />

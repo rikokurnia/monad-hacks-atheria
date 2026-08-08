@@ -1,5 +1,0 @@
-{
-  "buildCommand": "cd projects/web && npm run build",
-  "outputDirectory": "projects/web/.next",
-  "installCommand": "cd projects/web && npm install --legacy-peer-deps"
-}

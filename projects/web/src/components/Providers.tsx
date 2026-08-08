@@ -4,11 +4,7 @@ import { PrivyProvider } from "@privy-io/react-auth";
 import AuthRouter from "./AuthRouter";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID || "";
-  
-  if (!appId) {
-    console.error("Missing NEXT_PUBLIC_PRIVY_APP_ID in env.");
-  }
+  const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID || "cmsk6rsk701u30cjzuw5iy9pd";
 
   return (
     <PrivyProvider
