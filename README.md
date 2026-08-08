@@ -2,7 +2,16 @@
 > **The Ultimate Lossless DeFi Yield Raiding Strategy Game on Monad Testnet**  
 > *Built for Monad Hackathon 2026 — Light Celestial Kingdom Theme*
 
+[![Live Demo](https://img.shields.io/badge/🌐_Live_dApp-monad--hacks--atheria.vercel.app-06b6d4?style=for-the-badge)](https://monad-hacks-atheria.vercel.app/)
+[![Monad Testnet](https://img.shields.io/badge/Chain-Monad_Testnet_10143-8b5cf6?style=for-the-badge)](https://testnet-rpc.monad.xyz)
+
 ![Atheria Celestial Logo](projects/web/public/assets/atherialogo.png)
+
+---
+
+## 🔗 Quick Links
+- 🌐 **Live Application:** [https://monad-hacks-atheria.vercel.app/](https://monad-hacks-atheria.vercel.app/)
+- ⚡ **Monad Testnet Explorer:** `Chain ID 10143`
 
 ---
 
