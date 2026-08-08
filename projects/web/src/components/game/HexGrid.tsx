@@ -37,6 +37,40 @@ export interface HexGridProps {
   onSelectBuildingToDeploy?: (unitType: UnitType | null) => void;
 }
 
+// Floating Yield Coins Animation Component for Citadel (top of file so React reference remains stable across re-renders)
+const FloatingCitadelCoins: React.FC = () => {
+  const coins = [
+    { src: "/assets/effects/coinbtc.png", delay: 0 },
+    { src: "/assets/effects/coineth.png", delay: 1.2 },
+    { src: "/assets/effects/cointhether.png", delay: 2.4 },
+  ];
+
+  return (
+    <div className="absolute -top-[75px] left-1/2 -translate-x-1/2 pointer-events-none z-[100] w-10 h-10 flex justify-center items-center">
+      {coins.map((coin, index) => (
+        <motion.img
+          key={index}
+          src={coin.src}
+          className="absolute w-9 h-9 object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.9)] brightness-125"
+          initial={{ opacity: 0, y: 10, scale: 0.5 }}
+          animate={{
+            opacity: [0, 1, 1, 0],
+            y: [0, -25, -50],
+            scale: [0.6, 1.25, 1, 0.6],
+            rotate: [0, 15, -15, 0],
+          }}
+          transition={{
+            duration: 3.2,
+            repeat: Infinity,
+            delay: coin.delay,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 export const HexGrid: React.FC<HexGridProps> = (props) => {
   const {
     gridSize = 10,
@@ -390,6 +424,11 @@ export const HexGrid: React.FC<HexGridProps> = (props) => {
                 {/* Unit Display Container */}
                 {tile.unitType !== "NONE" && (
                   <div className="absolute inset-0 pointer-events-none">
+                    {/* Floating Yield Coins Effect for Citadel */}
+                    {tile.unitType === "CITADEL" && (
+                      <FloatingCitadelCoins />
+                    )}
+
                     {tile.hp > 0 ? (
                       <>
                         {(gameMode === "RAID" || (tile.unitType !== "ARCANE_MAGE" && tile.unitType !== "SERAPH_GLIDER")) && 
