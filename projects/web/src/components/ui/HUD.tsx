@@ -161,7 +161,7 @@ export const HUD: React.FC<HUDProps> = ({
               className="px-4 py-2 text-xs font-bold rounded-sm bg-white text-black hover:bg-gray-200 border border-white transition-all flex items-center gap-2 active:scale-95 uppercase tracking-wide"
             >
               <RefreshCw className="w-3.5 h-3.5" />
-              <span>Faucet $1K</span>
+              <span>Faucet 1,000 MON</span>
             </button>
 
             {/* Sub-menu Trigger Button below Faucet */}
@@ -265,9 +265,9 @@ export const HUD: React.FC<HUDProps> = ({
         <div className="flex items-center gap-3 bg-black/90 border border-white/10 px-4 py-2 rounded-sm w-48 justify-between">
           <Coins className="w-4 h-4 text-emerald-400" />
           <div className="flex flex-col text-right">
-            <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">USDC Wallet</span>
+            <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">MON Wallet</span>
             <span className="text-sm font-bold font-mono text-white">
-              ${usdcBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              {usdcBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })} MON
             </span>
           </div>
         </div>
@@ -275,9 +275,9 @@ export const HUD: React.FC<HUDProps> = ({
         <div className="flex items-center gap-3 bg-black/90 border border-white/10 px-4 py-2 rounded-sm w-48 justify-between">
           <ShieldCheck className="w-4 h-4 text-cyan-400" />
           <div className="flex flex-col text-right">
-            <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Staked Principal</span>
+            <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Staked MON</span>
             <span className="text-sm font-bold font-mono text-white">
-              ${stakedPrincipal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              {stakedPrincipal.toLocaleString("en-US", { minimumFractionDigits: 2 })} MON
             </span>
           </div>
         </div>
@@ -287,7 +287,7 @@ export const HUD: React.FC<HUDProps> = ({
           <div className="flex flex-col text-right">
             <span className="text-[9px] text-amber-400 font-bold uppercase tracking-widest">{gameMode === 'HOME' ? 'Unclaimed Yield' : 'Available Loot'}</span>
             <span className="text-sm font-bold font-mono text-white">
-              +${(gameMode === 'RAID' ? 5.000 : unclaimedYield).toFixed(4)}
+              +{(gameMode === 'RAID' ? 5.000 : unclaimedYield).toFixed(4)} MON
             </span>
           </div>
         </div>
@@ -419,7 +419,7 @@ export const HUD: React.FC<HUDProps> = ({
                   disabled={isLoading}
                   className="px-5 py-3 rounded-sm bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold uppercase tracking-widest border border-cyan-400 transition-all active:scale-95"
                 >
-                  Stake USDC
+                  Stake MON
                 </button>
                 <button
                   onClick={onClaimYieldClick}
@@ -585,7 +585,7 @@ export const HUD: React.FC<HUDProps> = ({
                       }}
                       className="flex-1 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-widest rounded border border-cyan-400 transition-all active:scale-95 shadow-lg shadow-cyan-950/50"
                     >
-                      Allocate USDC to Ambient
+                      Allocate MON to Ambient LP
                     </button>
                   </div>
                 </div>
@@ -638,7 +638,7 @@ export const HUD: React.FC<HUDProps> = ({
                       }}
                       className="flex-1 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs uppercase tracking-widest rounded border border-amber-400 transition-all active:scale-95 shadow-lg shadow-amber-950/50"
                     >
-                      Allocate USDC to Kuru
+                      Allocate MON to Kuru Orderbook
                     </button>
                   </div>
                 </div>
@@ -691,7 +691,7 @@ export const HUD: React.FC<HUDProps> = ({
                       }}
                       className="flex-1 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-widest rounded border border-purple-400 transition-all active:scale-95 shadow-lg shadow-purple-950/50"
                     >
-                      Allocate USDC to Magma
+                      Allocate MON to Magma Staking
                     </button>
                   </div>
                 </div>
@@ -717,14 +717,14 @@ export const HUD: React.FC<HUDProps> = ({
                     <div className="bg-black/60 border border-white/10 p-3 rounded">
                       <div className="text-[10px] font-mono text-gray-400 uppercase">Staked Principal</div>
                       <div className="text-lg font-bold font-mono text-cyan-400 mt-0.5">
-                        ${stakedPrincipal.toFixed(2)} USDC
+                        {stakedPrincipal.toFixed(2)} MON
                       </div>
                       <span className="text-[9px] text-emerald-400 font-semibold">100% Protected</span>
                     </div>
                     <div className="bg-black/60 border border-white/10 p-3 rounded">
                       <div className="text-[10px] font-mono text-gray-400 uppercase">Unclaimed Yield</div>
                       <div className="text-lg font-bold font-mono text-amber-400 mt-0.5">
-                        +${unclaimedYield.toFixed(4)} USDC
+                        +{unclaimedYield.toFixed(4)} MON
                       </div>
                       <span className="text-[9px] text-amber-300 font-semibold">Real-time Ticker</span>
                     </div>
@@ -788,7 +788,7 @@ export const HUD: React.FC<HUDProps> = ({
                       }}
                       className="flex-1 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-widest rounded border border-cyan-400 transition-all active:scale-95"
                     >
-                      Stake More USDC
+                      Stake More MON
                     </button>
                   </div>
                 </div>

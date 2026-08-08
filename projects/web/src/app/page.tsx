@@ -468,7 +468,7 @@ export default function Home() {
             {gameOver.status}
           </h1>
           <p className="text-xl text-gray-300 font-bold mb-10 uppercase tracking-widest">
-            Loot Stolen: <span className="text-emerald-400">+${gameOver.yield.toFixed(2)} USDC</span>
+            Loot Stolen: <span className="text-emerald-400">+{gameOver.yield.toFixed(2)} MON</span>
           </p>
           <div className="text-cyan-500 font-mono text-sm uppercase tracking-widest">
             Returning to Home Base...
