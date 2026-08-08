@@ -87,7 +87,12 @@ export const HUD: React.FC<HUDProps> = ({
         animate={{ opacity: 1, y: 0 }}
         className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-auto hidden md:flex items-center justify-center w-[1000px] h-[95px] z-40 bg-[url('/assets/header_bg.png')] bg-[length:100%_100%] bg-no-repeat filter drop-shadow-[0_10px_20px_rgba(6,182,212,0.4)]"
       >
-        <div className="flex items-center justify-center gap-12 w-full h-full pt-1">
+        {/* Atheria Logo positioned over the left dark section of the header image */}
+        <div className="absolute left-[24px] top-1/2 -translate-y-1/2 flex items-center justify-center w-[75px] h-[75px]">
+          <img src="/assets/atherialogo.png" alt="Atheria Logo" className="w-[60px] h-[60px] object-contain drop-shadow-[0_0_15px_rgba(6,182,212,0.9)]" />
+        </div>
+
+        <div className="flex items-center justify-center gap-12 w-full h-full pt-1 ml-[80px]">
           {/* Real-time Monad Performance Ticker */}
           <div className="flex items-center gap-5 font-mono whitespace-nowrap">
             <div className="flex items-center gap-2.5">
@@ -120,29 +125,24 @@ export const HUD: React.FC<HUDProps> = ({
       </motion.div>
 
       
-      {/* Top Left: Branding & Action (Floating) */}
+      {/* Left Side: Game Controls & DeFi Menu (Floating) */}
       <motion.div 
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
-        className="absolute top-6 left-6 flex flex-col gap-3 pointer-events-auto"
+        className="absolute top-[120px] left-6 flex flex-col gap-3 pointer-events-auto z-40"
       >
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-center bg-black/80 border border-cyan-400/40 p-2 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.3)] backdrop-blur-md">
-            <img src="/assets/atherialogo.png" alt="Atheria Logo" className="w-12 h-12 object-contain drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
-          </div>
-          <button
-            onClick={() => {
-              if (logout) logout();
-            }}
-            className="self-start text-[10px] text-red-400 font-bold tracking-widest uppercase hover:text-red-300 transition-colors flex items-center gap-1 ml-1 mt-1"
-            id="hud-disconnect-btn"
-          >
-            <LogOut className="w-3 h-3" /> DISCONNECT WALLET
-          </button>
-        </div>
-
         {gameMode === "HOME" ? (
           <div className="flex flex-col items-start gap-2 relative">
+            <button
+              onClick={() => {
+                if (logout) logout();
+              }}
+              className="text-[10px] text-red-400/90 font-bold tracking-widest uppercase hover:text-red-300 transition-colors flex items-center gap-1.5 mb-2 ml-1"
+              id="hud-disconnect-btn"
+            >
+              <LogOut className="w-3 h-3" /> [DISCONNECT WALLET]
+            </button>
+            
             <button
               onClick={onFaucetClick}
               disabled={isLoading}
