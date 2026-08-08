@@ -17,13 +17,17 @@ export const metadata: Metadata = {
   description: "Lossless DeFi yield raiding strategy game built on Monad 400ms parallel EVM.",
 };
 
+import Providers from "@/components/Providers";
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

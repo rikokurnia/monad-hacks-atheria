@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { UnitType } from "../game/HexGrid";
 import { Coins, ShieldCheck, Zap, Sword, Sparkles, RefreshCw, LogOut, ChevronDown, X, Layers, Flame, Waves, TrendingUp, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePrivy } from "@privy-io/react-auth";
 
 interface HUDProps {
   usdcBalance: number;
@@ -60,6 +61,7 @@ export const HUD: React.FC<HUDProps> = ({
   mageCount = 0,
   gliderCount = 0,
 }) => {
+  const { logout } = usePrivy();
   const [isDeFiMenuOpen, setIsDeFiMenuOpen] = useState(false);
   const [selectedDeFiProtocol, setSelectedDeFiProtocol] = useState<"AMBIENT" | "KURU" | "MAGMA" | "PORTFOLIO" | null>(null);
   const [activeStrategy, setActiveStrategy] = useState<"AMBIENT" | "KURU" | "MAGMA">("AMBIENT");
@@ -79,110 +81,44 @@ export const HUD: React.FC<HUDProps> = ({
   return (
     <div className="absolute inset-0 pointer-events-none z-30 p-6 overflow-hidden">
       
-      {/* Top Center: Celestial Light Morphic Navbar (KokonutUI Inspired) */}
+      {/* Top Center: Asset-Based UI Header Bar */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="absolute top-5 left-1/2 -translate-x-1/2 pointer-events-auto hidden md:flex items-center z-40"
+        className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-auto hidden md:flex items-center justify-center w-[1000px] h-[95px] z-40 bg-[url('/assets/header_bg.png')] bg-[length:100%_100%] bg-no-repeat filter drop-shadow-[0_10px_20px_rgba(6,182,212,0.4)]"
       >
-        <div 
-          className="relative flex items-center bg-white/30 border border-white/50 p-1.5 rounded-2xl shadow-[0_8px_32px_rgba(34,211,238,0.15)] backdrop-blur-xl"
-          onMouseLeave={() => setHoveredNav(null)}
-        >
-          {/* Player Identity */}
-          <div 
-            className="relative px-3 py-2 cursor-pointer z-10"
-            onMouseEnter={() => setHoveredNav('profile')}
-          >
-            {hoveredNav === 'profile' && (
-              <motion.div
-                layoutId="nav-hover"
-                className="absolute inset-0 bg-white/60 rounded-xl -z-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ type: "spring", stiffness: 350, damping: 25 }}
-              />
-            )}
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-cyan-50 border border-cyan-200 flex items-center justify-center text-sm shadow-sm">
-                🛡️
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5 leading-none">
-                  <span className="text-sm font-extrabold text-slate-800 tracking-wide">@YieldRider</span>
-                  <span className="text-[10px] font-bold text-cyan-700 bg-cyan-100 px-1.5 py-0.5 rounded-full border border-cyan-200">Lv.20</span>
-                </div>
-                <div className="flex items-center gap-1 mt-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_#10b981]" />
-                  <span className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Monad Active</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-px h-8 bg-slate-300/50 mx-1" />
-
+        <div className="flex items-center justify-center gap-12 w-full h-full pt-1">
           {/* Real-time Monad Performance Ticker */}
-          <div 
-            className="relative px-3 py-2 cursor-pointer z-10"
-            onMouseEnter={() => setHoveredNav('engine')}
-          >
-            {hoveredNav === 'engine' && (
-              <motion.div
-                layoutId="nav-hover"
-                className="absolute inset-0 bg-white/60 rounded-xl -z-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ type: "spring", stiffness: 350, damping: 25 }}
-              />
-            )}
-            <div className="flex items-center gap-4 text-xs font-mono">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.6)]" />
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">BLOCK</span>
-                <span className="text-sm font-extrabold text-slate-800 tracking-tight">#{blockNumber.toLocaleString()}</span>
-                <span className="text-[9px] font-bold text-cyan-700 bg-cyan-50 px-1.5 py-0.5 rounded-full border border-cyan-200 shadow-sm">400ms</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-amber-600 font-extrabold">
-                <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
-                <span className="text-sm">10k TPS</span>
-              </div>
+          <div className="flex items-center gap-5 font-mono whitespace-nowrap">
+            <div className="flex items-center gap-2.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-cyan-600 animate-pulse" />
+              <span className="text-[11px] text-cyan-900 font-extrabold uppercase tracking-widest">BLOCK</span>
+              <span className="text-base font-black text-slate-950 tracking-tight">#{blockNumber.toLocaleString()}</span>
+              <span className="text-[10px] font-bold text-cyan-950 bg-cyan-200/80 px-2 py-0.5 rounded border border-cyan-400/50 shadow-sm ml-0.5">400ms</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-amber-900 font-black">
+              <Zap className="w-5 h-5 text-amber-600 fill-amber-500" />
+              <span className="text-sm">10k TPS</span>
             </div>
           </div>
 
-          <div className="w-px h-8 bg-slate-300/50 mx-1" />
+          <div className="w-px h-8 bg-cyan-900/30" />
 
           {/* Vitals & Defense Shield */}
-          <div 
-            className="relative px-3 py-2 cursor-pointer z-10"
-            onMouseEnter={() => setHoveredNav('vitals')}
-          >
-            {hoveredNav === 'vitals' && (
-              <motion.div
-                layoutId="nav-hover"
-                className="absolute inset-0 bg-white/60 rounded-xl -z-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ type: "spring", stiffness: 350, damping: 25 }}
-              />
-            )}
-            <div className="flex items-center gap-4 text-xs">
-              <div className="flex items-center gap-1.5 font-mono">
-                <Zap className="w-4 h-4 text-cyan-500" />
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">ENERGY</span>
-                <span className="text-sm font-bold text-slate-800">6,420<span className="text-slate-400">/10k</span></span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg text-emerald-700 font-bold text-[10px] font-mono tracking-widest shadow-sm">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>SHIELD 100%</span>
-              </div>
+          <div className="flex items-center gap-4 whitespace-nowrap">
+            <div className="flex items-center gap-2 font-mono">
+              <Zap className="w-5 h-5 text-cyan-700" />
+              <span className="text-[11px] text-cyan-900 font-extrabold uppercase tracking-widest">ENERGY</span>
+              <span className="text-base font-black text-slate-950">6,420<span className="text-cyan-800/60 text-sm">/10k</span></span>
+            </div>
+            <div className="flex items-center gap-2 bg-emerald-100/90 border border-emerald-500/50 px-4 py-2 rounded-full text-emerald-950 font-extrabold text-[11px] font-mono tracking-wider shadow-sm ml-1">
+              <ShieldCheck className="w-4 h-4 text-emerald-700" />
+              <span>SHIELD 100%</span>
             </div>
           </div>
         </div>
       </motion.div>
+
       
       {/* Top Left: Branding & Action (Floating) */}
       <motion.div 
@@ -190,19 +126,30 @@ export const HUD: React.FC<HUDProps> = ({
         animate={{ opacity: 1, x: 0 }}
         className="absolute top-6 left-6 flex flex-col gap-3 pointer-events-auto"
       >
-        <div className="flex items-center gap-3 bg-black/90 border border-white/20 p-3 rounded-sm">
-          <div className="w-10 h-10 rounded-sm bg-cyan-500 flex items-center justify-center">
-            <Sparkles className="w-5 h-5 text-black" />
-          </div>
-          <div className="pr-2">
-            <h1 className="text-lg font-bold text-white tracking-wide uppercase">
-              ATHERIA <span className="text-cyan-400">YIELD WARS</span>
-            </h1>
-            <div className="flex items-center gap-1 text-[10px] font-medium text-cyan-200 uppercase tracking-widest mt-0.5">
-              <ShieldCheck className="w-3 h-3" />
-              <span>Monad 400ms Parallel EVM</span>
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3 bg-black/90 border border-white/20 p-3 rounded-sm">
+            <div className="w-10 h-10 rounded-sm bg-cyan-500 flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-black" />
+            </div>
+            <div className="pr-2">
+              <h1 className="text-lg font-bold text-white tracking-wide uppercase">
+                ATHERIA <span className="text-cyan-400">YIELD WARS</span>
+              </h1>
+              <div className="flex items-center gap-1 text-[10px] font-medium text-cyan-200 uppercase tracking-widest mt-0.5">
+                <ShieldCheck className="w-3 h-3" />
+                <span>Monad 400ms Parallel EVM</span>
+              </div>
             </div>
           </div>
+          <button
+            onClick={() => {
+              if (logout) logout();
+            }}
+            className="self-start text-[10px] text-red-400 font-bold tracking-widest uppercase hover:text-red-300 transition-colors flex items-center gap-1 ml-1 mt-1"
+            id="hud-disconnect-btn"
+          >
+            <LogOut className="w-3 h-3" /> DISCONNECT WALLET
+          </button>
         </div>
 
         {gameMode === "HOME" ? (
@@ -308,37 +255,44 @@ export const HUD: React.FC<HUDProps> = ({
         )}
       </motion.div>
 
-      {/* Top Right: Resources (Floating Stack) */}
+      {/* Top Right: Resources (Light Transparent White Glass Panel) */}
       <motion.div 
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
-        className="absolute top-6 right-6 flex flex-col items-end gap-2 pointer-events-auto"
+        className="absolute top-4 right-4 flex flex-col pointer-events-auto w-[240px] bg-white/85 border border-cyan-300/80 backdrop-blur-xl rounded-2xl p-4 shadow-[0_10px_30px_rgba(6,182,212,0.25)] z-40"
       >
-        <div className="flex items-center gap-3 bg-black/90 border border-white/10 px-4 py-2 rounded-sm w-48 justify-between">
-          <Coins className="w-4 h-4 text-emerald-400" />
-          <div className="flex flex-col text-right">
-            <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">MON Wallet</span>
-            <span className="text-sm font-bold font-mono text-white">
+        <div className="flex items-center justify-between border-b border-cyan-200/80 pb-2.5 mb-3">
+          <h3 className="text-cyan-950 text-[11px] font-extrabold uppercase tracking-[0.15em] flex items-center gap-1.5">
+            <Coins className="w-3.5 h-3.5 text-cyan-600" />
+            Celestial Banking
+          </h3>
+          <span className="text-[8px] font-mono bg-cyan-100 text-cyan-800 px-1.5 py-0.5 rounded border border-cyan-300 font-bold">MONAD</span>
+        </div>
+
+        <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col items-end bg-cyan-50/80 border border-cyan-200/80 p-2.5 rounded-xl">
+            <div className="flex items-center gap-1.5 text-[9px] text-cyan-800 font-bold uppercase tracking-wider">
+              <Coins className="w-3 h-3 text-emerald-600" /> MON Wallet
+            </div>
+            <span className="text-sm font-extrabold font-mono text-slate-900 mt-0.5">
               {usdcBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })} MON
             </span>
           </div>
-        </div>
 
-        <div className="flex items-center gap-3 bg-black/90 border border-white/10 px-4 py-2 rounded-sm w-48 justify-between">
-          <ShieldCheck className="w-4 h-4 text-cyan-400" />
-          <div className="flex flex-col text-right">
-            <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Staked MON</span>
-            <span className="text-sm font-bold font-mono text-white">
+          <div className="flex flex-col items-end bg-cyan-50/80 border border-cyan-200/80 p-2.5 rounded-xl">
+            <div className="flex items-center gap-1.5 text-[9px] text-cyan-800 font-bold uppercase tracking-wider">
+              <ShieldCheck className="w-3 h-3 text-cyan-600" /> Staked MON
+            </div>
+            <span className="text-sm font-extrabold font-mono text-slate-900 mt-0.5">
               {stakedPrincipal.toLocaleString("en-US", { minimumFractionDigits: 2 })} MON
             </span>
           </div>
-        </div>
 
-        <div className="flex items-center gap-3 bg-black/90 border border-amber-500/30 px-4 py-2 rounded-sm w-48 justify-between">
-          <Zap className="w-4 h-4 text-amber-400" />
-          <div className="flex flex-col text-right">
-            <span className="text-[9px] text-amber-400 font-bold uppercase tracking-widest">{gameMode === 'HOME' ? 'Unclaimed Yield' : 'Available Loot'}</span>
-            <span className="text-sm font-bold font-mono text-white">
+          <div className="flex flex-col items-end bg-amber-50/90 border border-amber-300/80 p-2.5 rounded-xl">
+            <div className="flex items-center gap-1.5 text-[9px] text-amber-800 font-bold uppercase tracking-wider">
+              <Zap className="w-3 h-3 text-amber-600" /> {gameMode === 'HOME' ? 'Unclaimed Yield' : 'Available Loot'}
+            </div>
+            <span className="text-sm font-extrabold font-mono text-amber-900 mt-0.5 shadow-sm">
               +{(gameMode === 'RAID' ? 5.000 : unclaimedYield).toFixed(4)} MON
             </span>
           </div>
@@ -469,32 +423,32 @@ export const HUD: React.FC<HUDProps> = ({
                 <button
                   onClick={onDepositClick}
                   disabled={isLoading}
-                  className="px-5 py-3 rounded-sm bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold uppercase tracking-widest border border-cyan-400 transition-all active:scale-95"
+                  className="w-[130px] h-[45px] bg-[url('/assets/btn_yellow.png')] bg-[length:100%_100%] bg-no-repeat text-amber-950 font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-1 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.4)]"
                 >
-                  Stake MON
+                  <Coins className="w-3.5 h-3.5" />
+                  <span>Stake MON</span>
                 </button>
                 <button
                   onClick={onClaimYieldClick}
-                  disabled={isLoading || unclaimedYield <= 0}
-                  className="px-5 py-3 rounded-sm bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold uppercase tracking-widest border border-amber-400 transition-all active:scale-95 disabled:opacity-50 disabled:grayscale"
+                  disabled={isLoading || unclaimedYield === 0}
+                  className="w-[130px] h-[45px] bg-[url('/assets/btn_yellow.png')] bg-[length:100%_100%] bg-no-repeat text-amber-950 font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-1 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.4)] disabled:opacity-50 disabled:grayscale"
                 >
-                  Claim Yield
+                  <Zap className="w-3.5 h-3.5 fill-amber-950" />
+                  <span>Claim Yield</span>
                 </button>
               </div>
 
               <button
                 onClick={() => {
                   if (isEditMode) {
-                    onTriggerWarning?.("⚠️ Matikan/Confirm mode EDIT (🔒 EDIT: OFF) terlebih dahulu sebelum mencari lawan!");
+                    onToggleEditMode();
                     return;
                   }
                   onSetGameMode("RAID");
                 }}
                 disabled={isLoading}
-                className={`mt-2 w-full px-6 py-4 rounded-sm text-white text-sm font-bold uppercase tracking-widest border transition-all flex items-center justify-center gap-2 ${
-                  isEditMode 
-                    ? "bg-gray-800 border-gray-600 cursor-not-allowed opacity-60" 
-                    : "bg-red-600 hover:bg-red-500 border-red-500 active:scale-95 shadow-lg shadow-red-950/40"
+                className={`mt-1 w-[268px] h-[60px] bg-[url('/assets/btn_red.png')] bg-[length:100%_100%] bg-no-repeat text-white text-[13px] font-extrabold uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 filter drop-shadow-[0_0_15px_rgba(220,38,38,0.6)] ${
+                  isEditMode ? "opacity-60 grayscale" : ""
                 }`}
               >
                 <Sword className="w-5 h-5" />
