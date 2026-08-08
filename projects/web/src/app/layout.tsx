@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Atheria: Yield Wars | Bright Celestial Kingdom Strategy Game",
   description: "Lossless DeFi yield raiding strategy game built on Monad 400ms parallel EVM.",
+  icons: {
+    icon: "/assets/atherialogo.png",
+  },
 };
 
 import Providers from "@/components/Providers";
