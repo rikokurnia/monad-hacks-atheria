@@ -1,0 +1,10 @@
+{
+  "network": "Monad Testnet",
+  "chainId": 10143,
+  "contracts": {
+    "MockUSDC": "0xe242738c8235317105c5716fAAf1B7C7cC676FFA",
+    "AtheriaVault": "0x68Aef8dE7d7eAc00EdA743dC8BfFd29283566e33",
+    "AtheriaBattle": "0x84b91D785C267500e7b59c94D62aa54813cD54c5"
+  },
+  "explorer": "https://testnet.monadexplorer.com"
+}

@@ -1,0 +1,14 @@
+# Dependencies & Build artifacts
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+out/
+build/
+.env*
+.DS_Store
+
+# Smart Contracts build & external libs
+projects/contracts/out/
+projects/contracts/cache/
+projects/contracts/lib/

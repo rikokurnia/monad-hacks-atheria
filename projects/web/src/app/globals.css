@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --celestial-white: #F8FAFC;
+  --celestial-marble: #EDF2F7;
+  --cyan-crystal: #00F0FF;
+  --cyan-glow: rgba(0, 240, 255, 0.4);
+  --gold-accent: #FFD700;
+  --gold-glow: rgba(255, 215, 0, 0.35);
+  --frosted-bg: rgba(255, 255, 255, 0.75);
+  --frosted-border: rgba(226, 232, 240, 0.8);
+  --text-primary: #0F172A;
+  --text-muted: #475569;
+}
+
+body {
+  background-color: #0F172A; /* Fallback dark background */
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+h1, h2, h3, .font-heading {
+  font-family: 'Cinzel', serif;
+}
+
+.font-mono-num {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Light Frosted Glassmorphism Container */
+.glass-panel {
+  background: var(--frosted-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--frosted-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.glass-panel-gold {
+  background: rgba(255, 253, 245, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  box-shadow: 0 8px 25px var(--gold-glow);
+}
+
+.glass-panel-cyan {
+  background: rgba(240, 253, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 240, 255, 0.5);
+  box-shadow: 0 8px 25px var(--cyan-glow);
+}
+
+/* Glowing Pulse Micro-animations */
+@keyframes cyan-pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(0, 240, 255, 0.7);
+  }
+}
+
+.cyan-pulse {
+  animation: cyan-pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes float-idle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float-anim {
+  animation: float-idle 3s infinite ease-in-out;
+}
+
+/* Hex Grid 2D Isometric Styling */
+.iso-grid-container {
+  transform: rotateX(55deg) rotateZ(-45deg);
+  transform-style: preserve-3d;
+}
+
+.tile-hover {
+  transition: all 0.2s ease-out;
+}
+
+.tile-hover:hover {
+  transform: translateZ(12px) scale(1.05);
+  filter: brightness(1.15);
+}
