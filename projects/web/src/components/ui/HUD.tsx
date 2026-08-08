@@ -63,6 +63,7 @@ export const HUD: React.FC<HUDProps> = ({
   const [isDeFiMenuOpen, setIsDeFiMenuOpen] = useState(false);
   const [selectedDeFiProtocol, setSelectedDeFiProtocol] = useState<"AMBIENT" | "KURU" | "MAGMA" | "PORTFOLIO" | null>(null);
   const [activeStrategy, setActiveStrategy] = useState<"AMBIENT" | "KURU" | "MAGMA">("AMBIENT");
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [blockNumber, setBlockNumber] = useState(9295412);
 
   // Live Monad 400ms Block Ticker Simulation
@@ -78,55 +79,106 @@ export const HUD: React.FC<HUDProps> = ({
   return (
     <div className="absolute inset-0 pointer-events-none z-30 p-6 overflow-hidden">
       
-      {/* Top Center: High-End Refined Monad Command Bar */}
+      {/* Top Center: Celestial Light Morphic Navbar (KokonutUI Inspired) */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="absolute top-5 left-1/2 -translate-x-1/2 pointer-events-auto hidden md:flex items-center gap-3 z-40"
+        className="absolute top-5 left-1/2 -translate-x-1/2 pointer-events-auto hidden md:flex items-center z-40"
       >
-        {/* Unified Glass Container */}
-        <div className="flex items-center gap-4 bg-slate-950/80 border border-cyan-500/25 px-5 py-2.5 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+        <div 
+          className="relative flex items-center bg-white/30 border border-white/50 p-1.5 rounded-2xl shadow-[0_8px_32px_rgba(34,211,238,0.15)] backdrop-blur-xl"
+          onMouseLeave={() => setHoveredNav(null)}
+        >
           {/* Player Identity */}
-          <div className="flex items-center gap-2.5 pr-2 border-r border-white/10">
-            <div className="w-7 h-7 rounded-lg bg-cyan-950/80 border border-cyan-400/40 flex items-center justify-center text-xs shadow-[0_0_12px_rgba(6,182,212,0.3)]">
-              🛡️
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5 leading-none">
-                <span className="text-xs font-extrabold text-white tracking-wide">@YieldRider</span>
-                <span className="text-[10px] font-mono font-bold text-cyan-400 bg-cyan-950/60 px-1 py-0.2 rounded border border-cyan-500/30">Lv.20</span>
+          <div 
+            className="relative px-3 py-2 cursor-pointer z-10"
+            onMouseEnter={() => setHoveredNav('profile')}
+          >
+            {hoveredNav === 'profile' && (
+              <motion.div
+                layoutId="nav-hover"
+                className="absolute inset-0 bg-white/60 rounded-xl -z-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              />
+            )}
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-cyan-50 border border-cyan-200 flex items-center justify-center text-sm shadow-sm">
+                🛡️
               </div>
-              <div className="flex items-center gap-1 mt-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
-                <span className="text-[9px] font-mono font-semibold text-emerald-400 uppercase tracking-wider">Monad Active</span>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5 leading-none">
+                  <span className="text-sm font-extrabold text-slate-800 tracking-wide">@YieldRider</span>
+                  <span className="text-[10px] font-bold text-cyan-700 bg-cyan-100 px-1.5 py-0.5 rounded-full border border-cyan-200">Lv.20</span>
+                </div>
+                <div className="flex items-center gap-1 mt-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_#10b981]" />
+                  <span className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Monad Active</span>
+                </div>
               </div>
             </div>
           </div>
+
+          <div className="w-px h-8 bg-slate-300/50 mx-1" />
 
           {/* Real-time Monad Performance Ticker */}
-          <div className="flex items-center gap-3 pr-2 border-r border-white/10 text-xs font-mono">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-sm bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">BLOCK</span>
-              <span className="font-extrabold text-white tracking-tight">#{blockNumber.toLocaleString()}</span>
-              <span className="text-[9px] font-bold text-cyan-300 bg-cyan-900/40 px-1.5 py-0.5 rounded border border-cyan-400/30">400ms</span>
-            </div>
-            <div className="flex items-center gap-1 text-emerald-400 font-extrabold ml-1">
-              <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-              <span>10,000 TPS</span>
+          <div 
+            className="relative px-3 py-2 cursor-pointer z-10"
+            onMouseEnter={() => setHoveredNav('engine')}
+          >
+            {hoveredNav === 'engine' && (
+              <motion.div
+                layoutId="nav-hover"
+                className="absolute inset-0 bg-white/60 rounded-xl -z-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              />
+            )}
+            <div className="flex items-center gap-4 text-xs font-mono">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.6)]" />
+                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">BLOCK</span>
+                <span className="text-sm font-extrabold text-slate-800 tracking-tight">#{blockNumber.toLocaleString()}</span>
+                <span className="text-[9px] font-bold text-cyan-700 bg-cyan-50 px-1.5 py-0.5 rounded-full border border-cyan-200 shadow-sm">400ms</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-amber-600 font-extrabold">
+                <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
+                <span className="text-sm">10k TPS</span>
+              </div>
             </div>
           </div>
 
+          <div className="w-px h-8 bg-slate-300/50 mx-1" />
+
           {/* Vitals & Defense Shield */}
-          <div className="flex items-center gap-3 text-xs">
-            <div className="flex items-center gap-1.5 font-mono">
-              <Zap className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">ENERGY</span>
-              <span className="font-bold text-cyan-300">6,420<span className="text-slate-500">/10k</span></span>
-            </div>
-            <div className="flex items-center gap-1.5 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded text-emerald-400 font-bold text-[10px] font-mono tracking-wider">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>SHIELD 100%</span>
+          <div 
+            className="relative px-3 py-2 cursor-pointer z-10"
+            onMouseEnter={() => setHoveredNav('vitals')}
+          >
+            {hoveredNav === 'vitals' && (
+              <motion.div
+                layoutId="nav-hover"
+                className="absolute inset-0 bg-white/60 rounded-xl -z-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              />
+            )}
+            <div className="flex items-center gap-4 text-xs">
+              <div className="flex items-center gap-1.5 font-mono">
+                <Zap className="w-4 h-4 text-cyan-500" />
+                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">ENERGY</span>
+                <span className="text-sm font-bold text-slate-800">6,420<span className="text-slate-400">/10k</span></span>
+              </div>
+              <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg text-emerald-700 font-bold text-[10px] font-mono tracking-widest shadow-sm">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>SHIELD 100%</span>
+              </div>
             </div>
           </div>
         </div>
