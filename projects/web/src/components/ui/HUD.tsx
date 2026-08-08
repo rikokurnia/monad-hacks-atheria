@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UnitType } from "../game/HexGrid";
 import { Coins, ShieldCheck, Zap, Sword, Sparkles, RefreshCw, LogOut, ChevronDown, X, Layers, Flame, Waves, TrendingUp, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -63,11 +63,74 @@ export const HUD: React.FC<HUDProps> = ({
   const [isDeFiMenuOpen, setIsDeFiMenuOpen] = useState(false);
   const [selectedDeFiProtocol, setSelectedDeFiProtocol] = useState<"AMBIENT" | "KURU" | "MAGMA" | "PORTFOLIO" | null>(null);
   const [activeStrategy, setActiveStrategy] = useState<"AMBIENT" | "KURU" | "MAGMA">("AMBIENT");
+  const [blockNumber, setBlockNumber] = useState(9295412);
+
+  // Live Monad 400ms Block Ticker Simulation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBlockNumber((prev) => prev + 1);
+    }, 400);
+    return () => clearInterval(interval);
+  }, []);
 
   const isInsideFence = selectedTile ? selectedTile.x >= 2 && selectedTile.x <= 7 && selectedTile.y >= 2 && selectedTile.y <= 7 : false;
 
   return (
     <div className="absolute inset-0 pointer-events-none z-30 p-6 overflow-hidden">
+      
+      {/* Top Center: Celestial Monad Command Header Bar (Option 1) */}
+      <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-auto hidden md:flex items-center gap-2 z-40"
+      >
+        {/* Left Pill: Player Profile */}
+        <div className="flex items-center gap-2.5 bg-slate-950/75 border border-cyan-500/30 px-3.5 py-1.5 rounded-full shadow-[0_4px_25px_rgba(0,0,0,0.5)] backdrop-blur-md">
+          <div className="relative w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-500 to-emerald-400 p-0.5 flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.6)]">
+            <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center text-cyan-300 font-bold text-xs">
+              🛡️
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-[11px] font-bold text-white tracking-wide leading-none flex items-center gap-1">
+              @YieldRider <span className="text-[9px] font-mono text-cyan-400 font-normal">Lvl 20</span>
+            </span>
+            <span className="text-[8px] font-mono text-emerald-400 font-bold flex items-center gap-1 mt-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Monad Connected
+            </span>
+          </div>
+        </div>
+
+        {/* Center Pill: Live Monad 400ms On-Chain Engine */}
+        <div className="flex items-center gap-4 bg-slate-950/75 border border-cyan-500/30 px-4 py-1.5 rounded-full shadow-[0_4px_25px_rgba(0,0,0,0.5)] backdrop-blur-md text-xs font-mono">
+          <div className="flex items-center gap-1.5 text-cyan-300">
+            <Layers className="w-3.5 h-3.5 text-cyan-400 animate-spin" style={{ animationDuration: '4s' }} />
+            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider hidden lg:inline">Block</span>
+            <span className="font-bold text-white font-mono">#{blockNumber.toLocaleString()}</span>
+            <span className="text-[9px] text-cyan-400 bg-cyan-950/80 px-1.5 py-0.5 rounded border border-cyan-500/40 font-bold">~400ms</span>
+          </div>
+          <div className="w-px h-3.5 bg-white/15" />
+          <div className="flex items-center gap-1 text-emerald-400 font-bold">
+            <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+            <span>10,000 TPS</span>
+          </div>
+        </div>
+
+        {/* Right Pill: Base Vitals & Shield */}
+        <div className="flex items-center gap-3 bg-slate-950/75 border border-cyan-500/30 px-3.5 py-1.5 rounded-full shadow-[0_4px_25px_rgba(0,0,0,0.5)] backdrop-blur-md text-xs">
+          <div className="flex items-center gap-1.5">
+            <Zap className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="text-[10px] text-gray-400 font-mono font-bold">Energy</span>
+            <span className="font-bold font-mono text-cyan-300">6,420 / 10k</span>
+          </div>
+          <div className="w-px h-3.5 bg-white/15" />
+          <div className="flex items-center gap-1 text-emerald-400 font-bold">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="text-[9px] font-mono uppercase tracking-wider text-emerald-300">Shield 100%</span>
+          </div>
+        </div>
+      </motion.div>
       
       {/* Top Left: Branding & Action (Floating) */}
       <motion.div 
