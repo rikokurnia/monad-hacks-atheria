@@ -28,11 +28,15 @@ export default function LandingPage() {
 
         {/* Navbar */}
         <nav className="absolute top-0 w-full px-8 py-6 z-20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-cyan-100 rounded-xl flex items-center justify-center border border-cyan-300 shadow-sm">
-              🛡️
-            </div>
+          <div className="flex items-center gap-3">
+            <img src="/assets/atherialogo.png" alt="Atheria Logo" className="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]" />
             <span className="text-xl font-black text-cyan-950 tracking-wide uppercase">Atheria</span>
+            <div className="hidden sm:flex items-center gap-1.5 bg-black/80 text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/20 ml-2">
+              <svg className="w-3 h-3 fill-current text-white" viewBox="0 0 512 512">
+                <path d="M256 48L512 464H0L256 48Z"/>
+              </svg>
+              <span>Vercel Deployed</span>
+            </div>
           </div>
           <div>
             {!authenticated ? (
@@ -62,10 +66,17 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-md border border-cyan-200 px-4 py-1.5 rounded-full mb-6 shadow-sm"
+            className="inline-flex items-center gap-3 bg-white/70 backdrop-blur-md border border-cyan-200 px-4 py-1.5 rounded-full mb-6 shadow-sm"
           >
             <Zap className="w-4 h-4 text-amber-500" />
             <span className="text-sm font-bold text-cyan-900 tracking-wider">BUILT ON MONAD TESTNET</span>
+            <span className="text-slate-300">|</span>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+              <svg className="w-3.5 h-3.5 fill-current text-slate-900" viewBox="0 0 512 512">
+                <path d="M256 48L512 464H0L256 48Z"/>
+              </svg>
+              <span>Vercel</span>
+            </div>
           </motion.div>
           
           <motion.h1
@@ -152,14 +163,18 @@ export default function LandingPage() {
       {/* FOOTER */}
       <footer className="bg-slate-900 py-12 border-t border-slate-800 relative z-20">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
-          <div className="flex items-center gap-2 mb-4 md:mb-0">
-            <div className="w-8 h-8 bg-cyan-900/50 rounded-lg flex items-center justify-center border border-cyan-700">
-              🛡️
-            </div>
+          <div className="flex items-center gap-3 mb-4 md:mb-0">
+            <img src="/assets/atherialogo.png" alt="Atheria Logo" className="w-8 h-8 object-contain" />
             <span className="text-lg font-black text-white tracking-wide uppercase">Atheria</span>
           </div>
-          <div className="text-slate-400 font-medium text-sm">
-            © 2026 Atheria Yield Wars. Built for Monad.
+          <div className="flex items-center gap-6 text-slate-400 font-medium text-sm">
+            <div className="flex items-center gap-1.5 bg-slate-800/80 px-3 py-1 rounded-full border border-slate-700 text-xs text-slate-300">
+              <svg className="w-3 h-3 fill-current text-white" viewBox="0 0 512 512">
+                <path d="M256 48L512 464H0L256 48Z"/>
+              </svg>
+              <span>Deployed on Vercel</span>
+            </div>
+            <span>© 2026 Atheria Yield Wars. Built for Monad.</span>
           </div>
         </div>
       </footer>

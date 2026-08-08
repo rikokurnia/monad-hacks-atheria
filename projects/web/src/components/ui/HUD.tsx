@@ -127,19 +127,8 @@ export const HUD: React.FC<HUDProps> = ({
         className="absolute top-6 left-6 flex flex-col gap-3 pointer-events-auto"
       >
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-3 bg-black/90 border border-white/20 p-3 rounded-sm">
-            <div className="w-10 h-10 rounded-sm bg-cyan-500 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-black" />
-            </div>
-            <div className="pr-2">
-              <h1 className="text-lg font-bold text-white tracking-wide uppercase">
-                ATHERIA <span className="text-cyan-400">YIELD WARS</span>
-              </h1>
-              <div className="flex items-center gap-1 text-[10px] font-medium text-cyan-200 uppercase tracking-widest mt-0.5">
-                <ShieldCheck className="w-3 h-3" />
-                <span>Monad 400ms Parallel EVM</span>
-              </div>
-            </div>
+          <div className="flex items-center justify-center bg-black/80 border border-cyan-400/40 p-2 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.3)] backdrop-blur-md">
+            <img src="/assets/atherialogo.png" alt="Atheria Logo" className="w-12 h-12 object-contain drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
           </div>
           <button
             onClick={() => {
