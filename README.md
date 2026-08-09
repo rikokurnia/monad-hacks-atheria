@@ -150,7 +150,7 @@ monad-hacks-atheria/
 
    NEXT_PUBLIC_PRIVY_APP_ID=cmsk6rsk701u30cjzuw5iy9pd
    PRIVY_APP_ID=cmsk6rsk701u30cjzuw5iy9pd
-   PRIVY_APP_SECRET=privy_app_secret_gPLMwHmnDi5s1oEBdbRMxWw8LXnNRTjHRPBTCxE39tLQ8TTNvX3V8uf9894n76vY98eBrLCHRTq2JtLzCoVtc4P
+   PRIVY_APP_SECRET=your_privy_app_secret_here
    ```
 
 4. **Run Development Server:**
