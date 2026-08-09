@@ -12,3 +12,9 @@ build/
 projects/contracts/out/
 projects/contracts/cache/
 projects/contracts/lib/
+mynotes/
+blitz_*.json
+blitz_*.tsv
+.codex/
+.impeccable/
+.monskills/
