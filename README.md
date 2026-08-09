@@ -34,49 +34,6 @@ Combining real-time Web3 strategy, dynamic yield routing across Monad DEX protoc
 
 ---
 
-## 🏗️ System Architecture
-
-```mermaid
-graph TD
-    User([🎮 Player]) -->|Privy Auth / Web3 Wallet| Frontend[⚡ Next.js 16 App Router]
-    
-    subgraph Frontend Layer ["Client Layer (Next.js + Tailwind + Framer Motion)"]
-        Landing["🌐 Light Celestial Landing Page (/landing)"]
-        Dashboard["🏰 Game Dashboard / HexGrid Canvas (/)"]
-        HUDComp["🛡️ Asset-Based Glassmorphic HUD"]
-        AuthRouter["🔄 AuthRouter & Privy Context"]
-    end
-    
-    Frontend --> AuthRouter
-    AuthRouter -->|Authenticated| Dashboard
-    AuthRouter -->|Unauthenticated| Landing
-    Dashboard --> HUDComp
-    
-    subgraph Blockchain Layer ["Monad Testnet (Chain ID 10143)"]
-        VaultContract["🏦 AtheriaVault.sol"]
-        BattleContract["⚔️ AtheriaBattle.sol"]
-        USDCContract["🪙 MockUSDC.sol"]
-    end
-    
-    Dashboard -->|Viem / Wagmi RPC Calls| Blockchain Layer
-    VaultContract -->|Yield Distribution| BattleContract
-    USDCContract -->|Staking / Faucet| VaultContract
-```
-
-### Architectural Highlights
-
-1. **Frontend Architecture (`projects/web`)**:
-   - **Next.js 16 (Turbopack) App Router:** High-speed client-side rendering with route protection.
-   - **AuthRouter Component:** Intercepts authentication state from `@privy-io/react-auth` to automatically redirect users to `/` upon login or `/landing` upon disconnect.
-   - **HexGrid Engine:** Custom 2D isometric grid system handling tile selection, building deployment, troop movement vectors, and collision logic.
-
-2. **Smart Contract Architecture (`projects/contracts`)**:
-   - **`MockUSDC.sol`**: ERC-20 token serving as primary staking collateral.
-   - **`AtheriaVault.sol`**: Vault managing deposit, withdrawal, and yield accrual mechanisms.
-   - **`AtheriaBattle.sol`**: Matchmaking and battle engine determining raid outcomes and loot transfers on-chain.
-
----
-
 ## 📜 Smart Contract Deployments (Monad Testnet)
 
 | Contract | Address | Network | Chain ID |
@@ -112,8 +69,6 @@ monad-hacks-atheria/
 │           ├── AtheriaVault.sol
 │           ├── AtheriaBattle.sol
 │           └── MockUSDC.sol
-├── mynotes/                     # Design Specs & Game Asset Requirements
-├── vercel.json                  # Monorepo Deployment Config for Vercel
 └── README.md
 ```
 
